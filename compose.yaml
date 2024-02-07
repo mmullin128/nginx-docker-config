@@ -2,10 +2,13 @@ services:
   test:
     build: ./cmdTest
     volumes:
-          - webroot:/letsencrypt
+          - letsencrypt:/letsencrypt
           - certs:/etc/letsencrypt
           - cmd:/cmd
-          - public:/public
+          - nginx-configs:/config
+    environment:
+      - PUBLIC_DIR=/usr/share/nginx/html
+      - LETS_ENCRYPT_DIR=/letsencrypt/
     stdin_open: true
     tty: true
   nginx:
@@ -14,12 +17,17 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - webroot:/letsencrypt
+      - letsencrypt:/letsencrypt
       - certs:/etc/letsencrypt
       - cmd:/cmd
       - public:/usr/share/nginx/html:ro
+      - nginx-configs:/etc/nginx/conf.d
+    environment:
+      - PUBLIC_DIR=/usr/share/nginx/html
+      - LETS_ENCRYPT_DIR=/letsencrypt/
 volumes:
-  webroot:
+  letsencrypt:
   certs:
   cmd:
   public:
+  nginx-configs:
