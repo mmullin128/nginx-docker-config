@@ -1,0 +1,25 @@
+services:
+  test:
+    build: ./cmdTest
+    volumes:
+          - webroot:/letsencrypt
+          - certs:/etc/letsencrypt
+          - cmd:/cmd
+          - public:/public
+    stdin_open: true
+    tty: true
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - webroot:/letsencrypt
+      - certs:/etc/letsencrypt
+      - cmd:/cmd
+      - public:/usr/share/nginx/html:ro
+volumes:
+  webroot:
+  certs:
+  cmd:
+  public:
