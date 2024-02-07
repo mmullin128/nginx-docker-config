@@ -11,27 +11,13 @@ echo "server {
     }
 }" > /etc/nginx/conf.d/default.conf
 
-#temporary server html
-echo "<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    This is the default html
-</body>
-</html>" > $PUBLIC_DIR/index.html
-
-
+#clear volume commands
 echo "$CONTINUE" > /cmd/exec.txt
 
 CLOSE="close"
 CONTINUE="continue"
 RELOAD="reload"
 SLEEP="sleep"
-
 
 
 CMD=$CONTINUE
